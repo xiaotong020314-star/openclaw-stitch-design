@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>OpenClaw - Shop</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700&amp;family=Geist:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+    }
+    .shadow-minimal {
+      box-shadow: 0px 1px 3px rgba(0,0,0,0.05);
+    }
+    .glass {
+      background: rgba(255, 255, 255, 0.7);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+    }
+    .tap-highlight-transparent {
+      -webkit-tap-highlight-color: transparent;
+    }
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+    .no-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+  </style>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "surface-dim": "#d8dadc",
+            "surface-container": "#eceef0",
+            "on-tertiary-fixed-variant": "#2f2ebe",
+            "outline-variant": "#bfc7d4",
+            "surface": "#f7f9fb",
+            "surface-variant": "#e0e3e5",
+            "on-secondary-fixed": "#001f26",
+            "on-secondary": "#ffffff",
+            "on-error-container": "#93000a",
+            "surface-bright": "#f7f9fb",
+            "on-secondary-container": "#006172",
+            "surface-tint": "#0061a4",
+            "tertiary-container": "#878bff",
+            "inverse-primary": "#9ecaff",
+            "outline": "#707883",
+            "tertiary-fixed": "#e1e0ff",
+            "surface-container-lowest": "#ffffff",
+            "tertiary-fixed-dim": "#c0c1ff",
+            "inverse-surface": "#2d3133",
+            "error-container": "#ffdad6",
+            "primary": "#0061a4",
+            "primary-container": "#2f9bf7",
+            "on-primary-fixed": "#001d36",
+            "on-surface-variant": "#404752",
+            "secondary-fixed": "#acedff",
+            "background": "#ffffff",
+            "on-surface": "#191c1e",
+            "secondary": "#00687a",
+            "tertiary": "#494bd6",
+            "primary-fixed": "#d1e4ff",
+            "on-error": "#ffffff",
+            "secondary-fixed-dim": "#4cd7f6",
+            "on-tertiary-fixed": "#07006c",
+            "on-primary-container": "#003156",
+            "on-secondary-fixed-variant": "#004e5c",
+            "on-background": "#191c1e",
+            "on-primary-fixed-variant": "#00497d",
+            "surface-container-low": "#f2f4f6",
+            "on-tertiary": "#ffffff",
+            "on-tertiary-container": "#1000a6",
+            "surface-container-highest": "#e0e3e5",
+            "on-primary": "#ffffff",
+            "error": "#ba1a1a",
+            "primary-fixed-dim": "#9ecaff",
+            "secondary-container": "#57dffe",
+            "surface-container-high": "#e6e8ea",
+            "inverse-on-surface": "#eff1f3"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.25rem",
+            "lg": "0.5rem",
+            "xl": "0.75rem",
+            "2xl": "1rem",
+            "full": "9999px"
+          },
+          "spacing": {
+            "lg": "24px",
+            "xs": "4px",
+            "base": "4px",
+            "md": "16px",
+            "container-margin": "24px",
+            "sm": "8px",
+            "xl": "40px",
+            "2xl": "64px",
+            "gutter": "12px"
+          },
+          "fontFamily": {
+            "headline-md": ["Hanken Grotesk"],
+            "label-sm": ["Geist"],
+            "headline-lg-mobile": ["Hanken Grotesk"],
+            "label-md": ["Geist"],
+            "headline-lg": ["Hanken Grotesk"],
+            "display-lg": ["Hanken Grotesk"],
+            "body-lg": ["Hanken Grotesk"],
+            "body-md": ["Hanken Grotesk"]
+          },
+          "fontSize": {
+            "headline-md": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+            "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "500"}],
+            "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+            "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "500"}],
+            "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "600"}],
+            "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+            "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+            "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}]
+          }
+        },
+      },
+    }
+  </script>
+</head>
+<body class="bg-background text-on-surface font-body-md selection:bg-primary/20">
+<header class="bg-background/95 sticky top-0 z-50 flex justify-between items-center w-full px-container-margin h-16 transition-all duration-300">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full overflow-hidden">
+<img alt="Butler Avatar" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDOYoQUN1LsRRKZkAU49uXh0w4ZbfbY_rsdfyXt6stWVw1qMyppXZrFFUsv_5BeMCkfW4uGzIjcMSN1XQ7NoUNahtphErnNQyP-D2qqXTnT9RqYNuuZvDW2Yv_yPLIJqCSPycdEcT4_2TaSuGsEbGYXt2VCPfYeTJILx5k2Zjn_XIlKmwFKE9FmwAscYhGP8RYjm6fcaAtZPokh3cSHSuKeTh_pGdAXJn-eqvX_0wLcqLh_43PSj-zsPv-XD6qle8x5EZIix_c4Xe8"/>
+</div>
+<h1 class="font-headline-md text-[18px] font-bold tracking-tight text-on-surface">OpenClaw</h1>
+</div>
+<div class="flex items-center gap-4">
+<button class="text-on-surface hover:opacity-60 transition-opacity">
+<span class="material-symbols-outlined text-xl" data-icon="notifications">notifications</span>
+</button>
+</div>
+</header>
+<main class="pb-32">
+<!-- Search Bar Section -->
+<section class="px-container-margin mt-2">
+<div class="relative flex items-center">
+<div class="absolute left-4 text-on-surface-variant/40">
+<span class="material-symbols-outlined text-[20px]" data-icon="search">search</span>
+</div>
+<input class="w-full h-11 pl-11 pr-4 rounded-full border-none bg-surface-container-low focus:bg-surface-container focus:ring-0 font-body-md text-sm transition-colors" placeholder="想吃点什么？" type="text"/>
+</div>
+</section>
+<!-- Understated Icon Grid -->
+<section class="px-container-margin mt-xl grid grid-cols-4 gap-y-8">
+<div class="flex flex-col items-center gap-2 tap-highlight-transparent group">
+<div class="w-10 h-10 flex items-center justify-center text-on-surface-variant group-active:scale-90 transition-transform">
+<span class="material-symbols-outlined text-2xl" data-icon="restaurant">restaurant</span>
+</div>
+<span class="font-label-sm text-[11px] text-on-surface-variant/80 uppercase tracking-wider">外卖</span>
+</div>
+<div class="flex flex-col items-center gap-2 tap-highlight-transparent group">
+<div class="w-10 h-10 flex items-center justify-center text-on-surface-variant group-active:scale-90 transition-transform">
+<span class="material-symbols-outlined text-2xl" data-icon="eco">eco</span>
+</div>
+<span class="font-label-sm text-[11px] text-on-surface-variant/80 uppercase tracking-wider">生鲜</span>
+</div>
+<div class="flex flex-col items-center gap-2 tap-highlight-transparent group">
+<div class="w-10 h-10 flex items-center justify-center text-on-surface-variant group-active:scale-90 transition-transform">
+<span class="material-symbols-outlined text-2xl" data-icon="store">store</span>
+</div>
+<span class="font-label-sm text-[11px] text-on-surface-variant/80 uppercase tracking-wider">便利店</span>
+</div>
+<div class="flex flex-col items-center gap-2 tap-highlight-transparent group">
+<div class="w-10 h-10 flex items-center justify-center text-on-surface-variant group-active:scale-90 transition-transform">
+<span class="material-symbols-outlined text-2xl" data-icon="chair">chair</span>
+</div>
+<span class="font-label-sm text-[11px] text-on-surface-variant/80 uppercase tracking-wider">到店</span>
+</div>
+<div class="flex flex-col items-center gap-2 tap-highlight-transparent group">
+<div class="w-10 h-10 flex items-center justify-center text-on-surface-variant group-active:scale-90 transition-transform">
+<span class="material-symbols-outlined text-2xl" data-icon="local_taxi">local_taxi</span>
+</div>
+<span class="font-label-sm text-[11px] text-on-surface-variant/80 uppercase tracking-wider">打车</span>
+</div>
+<div class="flex flex-col items-center gap-2 tap-highlight-transparent group">
+<div class="w-10 h-10 flex items-center justify-center text-on-surface-variant group-active:scale-90 transition-transform">
+<span class="material-symbols-outlined text-2xl" data-icon="cleaning_services">cleaning_services</span>
+</div>
+<span class="font-label-sm text-[11px] text-on-surface-variant/80 uppercase tracking-wider">家政</span>
+</div>
+<div class="flex flex-col items-center gap-2 tap-highlight-transparent group">
+<div class="w-10 h-10 flex items-center justify-center text-on-surface-variant group-active:scale-90 transition-transform">
+<span class="material-symbols-outlined text-2xl" data-icon="health_and_safety">health_and_safety</span>
+</div>
+<span class="font-label-sm text-[11px] text-on-surface-variant/80 uppercase tracking-wider">健康</span>
+</div>
+<div class="flex flex-col items-center gap-2 tap-highlight-transparent group">
+<div class="w-10 h-10 flex items-center justify-center text-on-surface-variant group-active:scale-90 transition-transform">
+<span class="material-symbols-outlined text-2xl" data-icon="more_horiz">more_horiz</span>
+</div>
+<span class="font-label-sm text-[11px] text-on-surface-variant/80 uppercase tracking-wider">更多</span>
+</div>
+</section>
+<!-- Understated Tabs -->
+<section class="mt-xl">
+<div class="flex gap-8 overflow-x-auto px-container-margin pb-4 no-scrollbar border-b border-surface-container">
+<button class="flex-shrink-0 font-label-md text-label-md text-on-surface border-b-2 border-primary pb-2">推荐</button>
+<button class="flex-shrink-0 font-label-md text-label-md text-on-surface-variant pb-2">外卖</button>
+<button class="flex-shrink-0 font-label-md text-label-md text-on-surface-variant pb-2">到店吃</button>
+<button class="flex-shrink-0 font-label-md text-label-md text-on-surface-variant pb-2">生鲜</button>
+<button class="flex-shrink-0 font-label-md text-label-md text-on-surface-variant pb-2">健康餐</button>
+</div>
+</section>
+<!-- Minimalist Curated Section -->
+<section class="mt-xl px-container-margin">
+<div class="flex items-center justify-between mb-8">
+<h2 class="font-headline-md text-[20px] font-medium tracking-tight">AI 精选</h2>
+<button class="text-xs text-on-surface-variant underline underline-offset-4">查看全部</button>
+</div>
+<div class="space-y-xl">
+<!-- Minimal Shop Card 1 -->
+<div class="group tap-highlight-transparent">
+<div class="aspect-[16/9] w-full rounded-2xl overflow-hidden bg-surface-container-low mb-4 relative">
+<img class="w-full h-full object-cover grayscale-[0.2] group-hover:grayscale-0 transition-all duration-700" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBUY0CW7vaoL8LSMZ1bUXyologsvlyj6aTUgEpIi4WOI2jiu_iGiF7nqpyC_mFcMurSzNv041--F8RqDrreeu53Yb5KgtH_PakaFLOXVfx6GSnE4BU9buOOu8_LDUiCHqemM190ObPNL5dYzNrXqotdXpsQXcsMp5A8tvZM-qVviHtR1qnatsnBtoLpol3M11Y88T2UjSZVK1rc8euS_7HTwOEMEoQhKXmso8SKpwRRAm1KkcsG9NJkSf9JRLswGJK4j46VT89vc6o"/>
+<div class="absolute top-4 left-4">
+<span class="bg-white/90 backdrop-blur text-[10px] font-bold px-2 py-1 rounded tracking-widest uppercase">98% Match</span>
+</div>
+</div>
+<div class="flex justify-between items-start">
+<div class="space-y-1">
+<h3 class="font-headline-md text-[18px]">青禾轻食</h3>
+<p class="text-xs text-on-surface-variant flex items-center gap-2">
+<span>低脂 • 高蛋白 • 无花生</span>
+<span class="w-1 h-1 rounded-full bg-outline-variant"></span>
+<span>2.4km</span>
+</p>
+</div>
+<div class="text-right">
+<div class="flex items-center gap-1 justify-end">
+<span class="material-symbols-outlined text-sm text-yellow-500" data-icon="star" data-weight="fill" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="text-xs font-bold">4.9</span>
+</div>
+<span class="text-xs text-on-surface-variant">$22 avg</span>
+</div>
+</div>
+</div>
+<!-- Minimal Shop Card 2 -->
+<div class="group tap-highlight-transparent">
+<div class="aspect-[16/9] w-full rounded-2xl overflow-hidden bg-surface-container-low mb-4 relative">
+<img class="w-full h-full object-cover grayscale-[0.2] group-hover:grayscale-0 transition-all duration-700" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDUGJoZHWAUyb8NErzW7gNMoMMTZUd5Eonii2ir6dm7QK-gWsOPtXXfk8ac7-hd8JvojBm456FfIXRtJe9qfRIAMAe5jgwG73FEFGIJDC0UZ8NcsMc4Kh3Jaun8r52S7a5SCYMXGOUWbe7f2MM7qYWZ3bFi41Xr3jkb5SWIb_Uq3SHqsdyGMjEFNN3DT8CgG3h1a8crjkciKKsGCAREZBhXF_f0oqbYzMt0VQgFYKjfpF-U3uSpoOoj-23Iq9sQ6whhToFkpzVjQBM"/>
+<div class="absolute top-4 left-4">
+<span class="bg-white/90 backdrop-blur text-[10px] font-bold px-2 py-1 rounded tracking-widest uppercase">92% Match</span>
+</div>
+</div>
+<div class="flex justify-between items-start">
+<div class="space-y-1">
+<h3 class="font-headline-md text-[18px]">老街面馆</h3>
+<p class="text-xs text-on-surface-variant flex items-center gap-2">
+<span>传统面食 • 出餐快</span>
+<span class="w-1 h-1 rounded-full bg-outline-variant"></span>
+<span>1.1km</span>
+</p>
+</div>
+<div class="text-right">
+<div class="flex items-center gap-1 justify-end">
+<span class="material-symbols-outlined text-sm text-yellow-500" data-icon="star" data-weight="fill" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="text-xs font-bold">4.7</span>
+</div>
+<span class="text-xs text-on-surface-variant">$15 avg</span>
+</div>
+</div>
+</div>
+<!-- Minimal Shop Card 3 -->
+<div class="group tap-highlight-transparent">
+<div class="aspect-[16/9] w-full rounded-2xl overflow-hidden bg-surface-container-low mb-4 relative">
+<img class="w-full h-full object-cover grayscale-[0.2] group-hover:grayscale-0 transition-all duration-700" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBVH89TlcSVId11h_bMfud1V4z7usZNQ97CygHJffXa5kY4ICSRY7SnXeVqxmQG14rnjQ5oJdNGDkZW-0Kz4RtTnP4eiST-5_RqXHf1fW8xLPXYvvk5wu7iqhR-5XdA_lFjm-1tLQGDRG5uvr8b3k5t3DmIDhYWYOvbwvRTlFCihsOe4NIw2JsWYAceRurPFbqK_SM_hQXywa7J7ITvc_EYEf3ZznyMAKU-XSt8YY3n16xeHCctymEhG5sSoMdXCQ-Zi_VovhTTsdw"/>
+<div class="absolute top-4 left-4">
+<span class="bg-white/90 backdrop-blur text-[10px] font-bold px-2 py-1 rounded tracking-widest uppercase">88% Match</span>
+</div>
+</div>
+<div class="flex justify-between items-start">
+<div class="space-y-1">
+<h3 class="font-headline-md text-[18px]">喜茶 GO</h3>
+<p class="text-xs text-on-surface-variant flex items-center gap-2">
+<span>低糖可选 • 人气爆款</span>
+<span class="w-1 h-1 rounded-full bg-outline-variant"></span>
+<span>0.5km</span>
+</p>
+</div>
+<div class="text-right">
+<div class="flex items-center gap-1 justify-end">
+<span class="material-symbols-outlined text-sm text-yellow-500" data-icon="star" data-weight="fill" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="text-xs font-bold">4.8</span>
+</div>
+<span class="text-xs text-on-surface-variant">$8 avg</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- BottomNavBar - Minimalist -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center pt-3 pb-8 px-8 bg-background/80 backdrop-blur-xl border-t border-surface-container-low">
+<a class="flex flex-col items-center justify-center text-on-surface-variant transition-colors" href="#">
+<span class="material-symbols-outlined text-[24px]" data-icon="smart_toy">smart_toy</span>
+<span class="text-[10px] mt-1 font-medium tracking-wide">管家</span>
+</a>
+<a class="flex flex-col items-center justify-center text-primary transition-colors" href="#">
+<span class="material-symbols-outlined text-[24px]" data-icon="shopping_bag" data-weight="fill" style="font-variation-settings: 'FILL' 1;">shopping_bag</span>
+<span class="text-[10px] mt-1 font-medium tracking-wide">商城</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant transition-colors" href="#">
+<span class="material-symbols-outlined text-[24px]" data-icon="apps">apps</span>
+<span class="text-[10px] mt-1 font-medium tracking-wide">服务</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant transition-colors" href="#">
+<span class="material-symbols-outlined text-[24px]" data-icon="person">person</span>
+<span class="text-[10px] mt-1 font-medium tracking-wide">我的</span>
+</a>
+</nav>
+<!-- Minimal AI Toast -->
+<div class="fixed bottom-24 left-1/2 -translate-x-1/2 z-50 w-[88%] max-w-sm transition-all duration-700 transform opacity-0 translate-y-4" id="ai-toast">
+<div class="bg-on-surface text-surface p-4 rounded-2xl shadow-xl flex items-center gap-4">
+<div class="bg-primary p-2 rounded-full text-white">
+<span class="material-symbols-outlined text-[20px]" data-icon="auto_awesome">auto_awesome</span>
+</div>
+<div class="flex-1">
+<p class="text-xs leading-relaxed opacity-90">需要为您预订 45 分钟后的喜茶吗？</p>
+</div>
+<button class="text-xs font-bold px-3 py-2 bg-primary text-white rounded-lg" id="toast-action">好</button>
+</div>
+</div>
+<script>
+  // Show AI toast after delay
+  setTimeout(() => {
+    const toast = document.getElementById('ai-toast');
+    toast.classList.remove('opacity-0', 'translate-y-4');
+  }, 2000);
+
+  // Close toast interaction
+  document.getElementById('toast-action').addEventListener('click', () => {
+    const toast = document.getElementById('ai-toast');
+    toast.classList.add('opacity-0', 'translate-y-4');
+  });
+
+  // Simple scroll behavior for header
+  let lastScroll = 0;
+  window.addEventListener('scroll', () => {
+    const header = document.querySelector('header');
+    const currentScroll = window.scrollY;
+    
+    if (currentScroll > 10) {
+      header.classList.add('border-b', 'border-surface-container-low');
+    } else {
+      header.classList.remove('border-b', 'border-surface-container-low');
+    }
+    lastScroll = currentScroll;
+  });
+</script>
+</body></html>

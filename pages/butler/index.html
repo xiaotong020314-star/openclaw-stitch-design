@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+
+<html class="light" lang="zh-CN"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>OpenClaw - Butler</title>
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700&amp;family=Geist:wght@400;500&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "surface-dim": "#d8dadc",
+                      "surface-container": "#f0f2f4",
+                      "on-tertiary-fixed-variant": "#2f2ebe",
+                      "outline-variant": "#e2e8f0",
+                      "surface": "#ffffff",
+                      "surface-variant": "#f8fafc",
+                      "on-secondary-fixed": "#001f26",
+                      "on-secondary": "#ffffff",
+                      "on-error-container": "#93000a",
+                      "surface-bright": "#ffffff",
+                      "on-secondary-container": "#006172",
+                      "surface-tint": "#0061a4",
+                      "tertiary-container": "#eff0fe",
+                      "inverse-primary": "#9ecaff",
+                      "outline": "#cbd5e1",
+                      "tertiary-fixed": "#e1e0ff",
+                      "surface-container-lowest": "#ffffff",
+                      "tertiary-fixed-dim": "#c0c1ff",
+                      "inverse-surface": "#2d3133",
+                      "error-container": "#fef2f2",
+                      "primary": "#2f9bf7",
+                      "primary-container": "#eef7ff",
+                      "on-primary-fixed": "#001d36",
+                      "on-surface-variant": "#64748b",
+                      "secondary-fixed": "#acedff",
+                      "background": "#f8fafc",
+                      "on-surface": "#1e293b",
+                      "secondary": "#475569",
+                      "tertiary": "#6366f1",
+                      "primary-fixed": "#d1e4ff",
+                      "on-error": "#ffffff",
+                      "secondary-fixed-dim": "#4cd7f6",
+                      "on-tertiary-fixed": "#07006c",
+                      "on-primary-container": "#003156",
+                      "on-secondary-fixed-variant": "#004e5c",
+                      "on-background": "#0f172a",
+                      "on-primary-fixed-variant": "#00497d",
+                      "surface-container-low": "#f8fafc",
+                      "on-tertiary": "#ffffff",
+                      "on-tertiary-container": "#1000a6",
+                      "surface-container-highest": "#f1f5f9",
+                      "on-primary": "#ffffff",
+                      "error": "#ef4444",
+                      "primary-fixed-dim": "#9ecaff",
+                      "secondary-container": "#f1f5f9",
+                      "surface-container-high": "#f1f5f9",
+                      "inverse-on-surface": "#eff1f3"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.375rem",
+                      "lg": "0.5rem",
+                      "xl": "1rem",
+                      "2xl": "1.5rem",
+                      "3xl": "2rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "lg": "32px",
+                      "xs": "4px",
+                      "base": "4px",
+                      "md": "20px",
+                      "container-margin": "24px",
+                      "sm": "12px",
+                      "xl": "48px",
+                      "2xl": "64px",
+                      "gutter": "16px"
+              },
+              "fontFamily": {
+                      "headline-md": ["Hanken Grotesk"],
+                      "label-sm": ["Geist"],
+                      "headline-lg-mobile": ["Hanken Grotesk"],
+                      "label-md": ["Geist"],
+                      "headline-lg": ["Hanken Grotesk"],
+                      "display-lg": ["Hanken Grotesk"],
+                      "body-lg": ["Hanken Grotesk"],
+                      "body-md": ["Hanken Grotesk"]
+              },
+              "fontSize": {
+                      "headline-md": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                      "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.01em", "fontWeight": "400"}],
+                      "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                      "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "500"}],
+                      "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "600"}],
+                      "display-lg": ["44px", {"lineHeight": "52px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                      "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                      "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}]
+              }
+            },
+          },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        
+        /* Glassmorphism & Depth */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03), 0 10px 40px rgba(0, 0, 0, 0.05);
+        }
+        
+        .soft-shadow {
+            box-shadow: 0 8px 30px rgba(47, 155, 247, 0.08);
+        }
+
+        /* AI Orb Animations */
+        @keyframes orb-pulse {
+            0%, 100% { transform: scale(1); opacity: 1; box-shadow: 0 0 20px rgba(47, 155, 247, 0.5); }
+            50% { transform: scale(1.1); opacity: 0.9; box-shadow: 0 0 35px rgba(47, 155, 247, 0.7); }
+        }
+        @keyframes ring-expand {
+            0% { transform: scale(0.8); opacity: 0.6; }
+            100% { transform: scale(1.8); opacity: 0; }
+        }
+        .ai-orb-container {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+        }
+        .ai-orb {
+            position: relative;
+            background: radial-gradient(circle at 30% 30%, #4facfe 0%, #0061a4 100%);
+            border-radius: 50%;
+            animation: orb-pulse 4s ease-in-out infinite;
+        }
+        .ai-ring {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: 1.5px solid rgba(47, 155, 247, 0.4);
+            border-radius: 50%;
+            animation: ring-expand 3s cubic-bezier(0.16, 1, 0.3, 1) infinite;
+        }
+        .ai-ring-2 { animation-delay: 1s; }
+        .ai-ring-3 { animation-delay: 2s; }
+
+        /* Section Dividers */
+        .section-container {
+            background: #ffffff;
+            border-radius: 2rem;
+            padding: 24px;
+            border: 1px solid rgba(226, 232, 240, 0.6);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.02);
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-md min-h-screen pb-40">
+<!-- TopAppBar -->
+<header class="bg-white/80 backdrop-blur-md sticky top-0 z-50 flex justify-between items-center w-full px-container-margin h-20 border-b border-slate-100/50">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center overflow-hidden border border-primary/20">
+<img alt="AI Assistant" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAf4gaBe8dZQUIrG7Ko5UE6KFz_WRw341I9JFRPtv8reHnhCmjNF61YIgUEu_nfIAntoX28lMobXUZKlRyAesizaQknzh7mw2h1rumBihdYlYHZMKyJKlAh69LE49XOGziaEWo2ZRILr_ygvQT12KRugxN47p5VifHbVIQCedsOlq9Hqr8vMuhucIxAnwaGjKOwBZ0YJEyfUFdYNDlybbbfZCx7GJySyRgjOr1VzR3NF4a_4duUhoXM8XvQHIDul348RkR4UOOLriA"/>
+</div>
+<span class="font-headline-md text-headline-md tracking-tight text-on-background">OpenClaw</span>
+</div>
+<div class="flex items-center gap-2">
+<button class="w-10 h-10 flex items-center justify-center text-on-surface-variant hover:bg-slate-100 rounded-full transition-colors relative">
+<span class="material-symbols-outlined text-[24px]">notifications</span>
+<span class="absolute top-2.5 right-2.5 w-2 h-2 bg-primary rounded-full border-2 border-white"></span>
+</button>
+</div>
+</header>
+<main class="px-container-margin space-y-8 mt-2">
+<!-- Hero Interaction Zone -->
+<section class="relative overflow-hidden pt-8 pb-10 px-6 rounded-3xl bg-gradient-to-br from-primary/10 via-primary/5 to-white border border-primary/10 soft-shadow">
+<!-- Decorative background elements -->
+<div class="absolute -top-20 -right-20 w-64 h-64 bg-primary/5 rounded-full blur-3xl"></div>
+<div class="absolute -bottom-10 -left-10 w-48 h-48 bg-secondary/5 rounded-full blur-2xl"></div>
+<div class="relative z-10 space-y-6">
+<div class="ai-orb-container gap-5">
+<div class="ai-orb w-14 h-14">
+<div class="ai-ring"></div>
+<div class="ai-ring ai-ring-2"></div>
+<div class="ai-ring ai-ring-3"></div>
+</div>
+<div class="flex flex-col">
+<span class="font-headline-lg-mobile text-on-background leading-tight">早安，主人</span>
+<p class="font-body-md text-on-surface-variant/80">今天我会全程为您打理</p>
+</div>
+</div>
+<div class="flex flex-col gap-4 mt-8">
+<div class="relative flex items-center">
+<input class="w-full h-16 bg-white/90 glass-card rounded-2xl border-none px-6 font-body-md focus:ring-2 focus:ring-primary/20 text-on-background placeholder-slate-400 shadow-sm" placeholder="给管家发消息..." type="text"/>
+<button class="absolute right-2.5 w-11 h-11 rounded-xl bg-primary text-white flex items-center justify-center active:scale-95 transition-transform shadow-lg shadow-primary/25">
+<span class="material-symbols-outlined text-xl">arrow_upward</span>
+</button>
+</div>
+<div class="flex gap-3">
+<button class="flex-1 h-14 rounded-2xl glass-card bg-white/60 text-primary font-medium flex items-center justify-center gap-2 active:scale-95 transition-all border border-primary/10">
+<span class="material-symbols-outlined text-2xl">mic</span>
+<span>语音对话</span>
+</button>
+<button class="w-14 h-14 rounded-2xl glass-card bg-white/60 text-on-surface-variant flex items-center justify-center active:scale-95 transition-all">
+<span class="material-symbols-outlined text-2xl">grid_view</span>
+</button>
+</div>
+</div>
+</div>
+</section>
+<!-- Today's Schedule (Proactive) -->
+<section class="section-container space-y-md">
+<div class="flex items-center justify-between">
+<h3 class="font-headline-md text-on-background">今日重点</h3>
+<div class="bg-primary/10 text-primary px-3 py-1 rounded-full font-label-sm font-semibold">3 条建议</div>
+</div>
+<div class="flex gap-md overflow-x-auto no-scrollbar pb-2 px-1 -mx-1">
+<!-- Card 1 -->
+<div class="min-w-[280px] glass-card p-md rounded-2xl space-y-sm border-l-4 border-l-primary">
+<div class="flex items-center gap-2 text-primary">
+<span class="material-symbols-outlined text-[22px] font-bold">umbrella</span>
+<span class="font-label-md font-bold uppercase tracking-wider">气象预警</span>
+</div>
+<p class="font-body-md text-on-surface leading-snug">预计傍晚通勤时段有大雨，建议帮您预约下午 5:30 的专车。</p>
+<div class="flex gap-2 pt-3">
+<button class="bg-primary text-white px-6 py-2.5 rounded-xl font-label-md shadow-lg shadow-primary/20 active:scale-95 transition-transform">立即预约</button>
+<button class="bg-slate-100 text-on-surface-variant px-5 py-2.5 rounded-xl font-label-md hover:bg-slate-200">稍后</button>
+</div>
+</div>
+<!-- Card 2 -->
+<div class="min-w-[280px] bg-slate-50/80 p-md rounded-2xl space-y-sm border border-slate-200/50 shadow-sm">
+<div class="flex items-center gap-2 text-rose-500">
+<span class="material-symbols-outlined text-[22px]">favorite</span>
+<span class="font-label-md font-bold uppercase tracking-wider">家人健康</span>
+</div>
+<p class="font-body-md text-on-surface leading-snug">您父亲的睡眠质量连续3天较低，建议今天抽空进行视频沟通。</p>
+<div class="flex gap-2 pt-3">
+<button class="bg-white text-on-surface border border-slate-200 px-6 py-2.5 rounded-xl font-label-md shadow-sm active:scale-95 transition-transform">拨打电话</button>
+</div>
+</div>
+</div>
+</section>
+<!-- Scenes Timeline -->
+<section class="section-container space-y-lg">
+<h3 class="font-headline-md text-on-background">场景日程</h3>
+<div class="space-y-8 relative before:absolute before:left-5 before:top-2 before:bottom-2 before:w-[2px] before:bg-slate-100">
+<!-- Timeline Item 1 -->
+<div class="flex gap-md relative">
+<div class="w-10 h-10 rounded-full bg-white flex items-center justify-center z-10 border-2 border-slate-100 shadow-sm">
+<span class="material-symbols-outlined text-slate-400 text-lg">alarm</span>
+</div>
+<div class="pt-0.5">
+<p class="font-label-sm text-on-surface-variant font-medium">07:00 AM</p>
+<h4 class="font-body-md font-semibold text-on-surface">智能唤醒</h4>
+<p class="font-label-sm text-on-surface-variant/80">已在浅眠阶段温柔唤醒，窗帘自动开启</p>
+</div>
+</div>
+<!-- Timeline Item 2 -->
+<div class="flex gap-md relative">
+<div class="w-10 h-10 rounded-full bg-white flex items-center justify-center z-10 border-2 border-slate-100 shadow-sm">
+<span class="material-symbols-outlined text-slate-400 text-lg">restaurant</span>
+</div>
+<div class="pt-0.5">
+<p class="font-label-sm text-on-surface-variant font-medium">12:30 PM</p>
+<h4 class="font-body-md font-semibold text-on-surface">营养午餐</h4>
+<p class="font-label-sm text-on-surface-variant/80">地中海沙拉配送中，预计15分钟后到达</p>
+</div>
+</div>
+<!-- Timeline Item 3 (Active) -->
+<div class="flex gap-md relative">
+<div class="w-10 h-10 rounded-full bg-primary flex items-center justify-center z-10 border-4 border-primary-container shadow-lg shadow-primary/20">
+<span class="material-symbols-outlined text-white text-lg font-bold">directions_car</span>
+</div>
+<div class="bg-primary-container/30 border border-primary/10 p-md rounded-2xl flex-1 glass-card shadow-md">
+<div class="flex justify-between items-start mb-1">
+<p class="font-label-sm text-primary font-bold">05:30 PM (预计)</p>
+<span class="flex h-2 w-2 rounded-full bg-primary animate-pulse"></span>
+</div>
+<h4 class="font-body-md font-bold text-on-primary-container">下班通勤规划</h4>
+<p class="font-label-sm text-on-surface-variant">已规划避堵路线，您的特斯拉已开启哨兵模式</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Active Suggestions Bento -->
+<section class="section-container space-y-md">
+<h3 class="font-headline-md text-on-background">智能服务</h3>
+<div class="grid grid-cols-2 gap-4">
+<div class="bg-gradient-to-br from-slate-50 to-white p-5 rounded-3xl border border-slate-200/60 flex flex-col justify-between h-40 hover:shadow-md transition-all cursor-pointer group active:scale-[0.98]">
+<div class="w-12 h-12 bg-orange-50 rounded-2xl flex items-center justify-center text-orange-500 group-hover:bg-orange-500 group-hover:text-white transition-colors">
+<span class="material-symbols-outlined text-2xl">restaurant</span>
+</div>
+<span class="font-label-md font-bold text-on-surface">健康餐饮</span>
+</div>
+<div class="bg-gradient-to-br from-slate-50 to-white p-5 rounded-3xl border border-slate-200/60 flex flex-col justify-between h-40 hover:shadow-md transition-all cursor-pointer group active:scale-[0.98]">
+<div class="w-12 h-12 bg-blue-50 rounded-2xl flex items-center justify-center text-blue-500 group-hover:bg-blue-500 group-hover:text-white transition-colors">
+<span class="material-symbols-outlined text-2xl">electric_car</span>
+</div>
+<span class="font-label-md font-bold text-on-surface">智慧出行</span>
+</div>
+<div class="bg-gradient-to-br from-slate-50 to-white p-5 rounded-3xl border border-slate-200/60 flex flex-col justify-between h-40 hover:shadow-md transition-all cursor-pointer group active:scale-[0.98]">
+<div class="w-12 h-12 bg-green-50 rounded-2xl flex items-center justify-center text-green-500 group-hover:bg-green-500 group-hover:text-white transition-colors">
+<span class="material-symbols-outlined text-2xl">fitness_center</span>
+</div>
+<span class="font-label-md font-bold text-on-surface">体能管理</span>
+</div>
+<div class="bg-gradient-to-br from-slate-50 to-white p-5 rounded-3xl border border-slate-200/60 flex flex-col justify-between h-40 hover:shadow-md transition-all cursor-pointer group active:scale-[0.98]">
+<div class="w-12 h-12 bg-purple-50 rounded-2xl flex items-center justify-center text-purple-500 group-hover:bg-purple-500 group-hover:text-white transition-colors">
+<span class="material-symbols-outlined text-2xl">cleaning_services</span>
+</div>
+<span class="font-label-md font-bold text-on-surface">环境管家</span>
+</div>
+<div class="col-span-2 bg-slate-50/50 p-5 rounded-2xl flex items-center justify-between border border-slate-200/40 hover:bg-white hover:shadow-sm transition-all cursor-pointer">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 bg-white rounded-xl flex items-center justify-center border border-slate-100 text-slate-500">
+<span class="material-symbols-outlined text-2xl">calendar_month</span>
+</div>
+<span class="font-label-md font-bold text-on-surface">第三方日程同步</span>
+</div>
+<span class="material-symbols-outlined text-slate-300">chevron_right</span>
+</div>
+<div class="col-span-2 bg-red-50/50 p-5 rounded-2xl flex items-center justify-between border border-red-100/50 hover:bg-red-50 transition-all cursor-pointer">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 bg-white rounded-xl flex items-center justify-center border border-red-50 text-error">
+<span class="material-symbols-outlined text-2xl font-bold">emergency</span>
+</div>
+<span class="font-label-md font-bold text-on-error-container">安全与紧急预案</span>
+</div>
+<span class="material-symbols-outlined text-error/30">chevron_right</span>
+</div>
+</div>
+</section>
+</main>
+<!-- Floating Action Chips (Subtle Glass) -->
+<div class="fixed bottom-24 left-0 w-full z-40 px-container-margin pointer-events-none">
+<div class="flex gap-3 overflow-x-auto no-scrollbar pointer-events-auto pb-2">
+<button class="flex-none glass-card bg-white/80 border border-white backdrop-blur-xl px-5 py-3 rounded-full shadow-lg font-label-md text-on-surface flex items-center gap-2 active:scale-95 transition-transform border border-slate-100">
+<span class="material-symbols-outlined text-primary text-xl font-bold">mic</span>
+<span>语音速记</span>
+</button>
+<button class="flex-none glass-card bg-white/80 border border-white backdrop-blur-xl px-5 py-3 rounded-full shadow-lg font-label-md text-on-surface flex items-center gap-2 active:scale-95 transition-transform border border-slate-100">
+<span class="material-symbols-outlined text-primary text-xl font-bold">edit_note</span>
+<span>快捷任务</span>
+</button>
+</div>
+</div>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center h-20 px-6 bg-white/90 backdrop-blur-md border-t border-slate-100 shadow-[0_-4px_20px_rgba(0,0,0,0.02)]">
+<a class="flex flex-col items-center justify-center gap-1.5 text-primary px-3 py-1 group" href="#">
+<span class="material-symbols-outlined text-[28px] transition-transform group-active:scale-90" style="font-variation-settings: 'FILL' 1;">smart_toy</span>
+<span class="text-[11px] font-bold tracking-tight">管家</span>
+</a>
+<a class="flex flex-col items-center justify-center gap-1.5 text-on-surface-variant px-3 py-1 opacity-60 hover:opacity-100 transition-opacity" href="#">
+<span class="material-symbols-outlined text-[26px]">shopping_bag</span>
+<span class="text-[11px] font-medium">商城</span>
+</a>
+<a class="flex flex-col items-center justify-center gap-1.5 text-on-surface-variant px-3 py-1 opacity-60 hover:opacity-100 transition-opacity" href="#">
+<span class="material-symbols-outlined text-[26px]">grid_view</span>
+<span class="text-[11px] font-medium">工具</span>
+</a>
+<a class="flex flex-col items-center justify-center gap-1.5 text-on-surface-variant px-3 py-1 opacity-60 hover:opacity-100 transition-opacity" href="#">
+<span class="material-symbols-outlined text-[26px]">person</span>
+<span class="text-[11px] font-medium">我的</span>
+</a>
+</nav>
+<script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const sections = document.querySelectorAll('section, nav, header');
+            sections.forEach((section, index) => {
+                section.style.opacity = '0';
+                section.style.transform = 'translateY(15px)';
+                section.style.transition = 'opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.6s cubic-bezier(0.16, 1, 0.3, 1)';
+                section.style.transitionDelay = `${index * 0.05}s`;
+                
+                setTimeout(() => {
+                    section.style.opacity = '1';
+                    section.style.transform = 'translateY(0)';
+                }, 100);
+            });
+        });
+    </script>
+</body></html>
